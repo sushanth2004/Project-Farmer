@@ -70,6 +70,30 @@ body {
     background-color: #416D19
 }
 
+#google_translate {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    text-align: right;
+}
+
+.goog-te-combo {
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+}
+
+.goog-logo-link {
+    display: none !important;
+}
+
+.goog-te-gadget {
+    color: transparent !important;
+}
+
 
 @media screen and (max-width: 600px) {
     .header {
