@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Disease Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        .disease-info {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .disease-info img {
+            max-width: 100px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Crop Disease Detection</h1>
+    <input type="file" id="cropImage" accept="image/*">
+    <button onclick="uploadImage()">Upload and Detect Disease</button>
+    <div id="result"></div>
+
+    <script>
+        // Function to handle image upload and disease detection
+        function uploadImage() {
+            var fileInput = document.getElementById('cropImage');
+            var file = fileInput.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    var base64Image = event.target.result.split(',')[1];
+
+                    var myHeaders = new Headers();
+                    myHeaders.append("Api-Key", "U2A0tz7D0i1OeMjqCY2a0uZCF91gh71xmOzyj4YogTXb6WcvQs");
+                    myHeaders.append("Content-Type", "application/json");
+
+                    var raw = JSON.stringify({
+                        "images": [base64Image],
+                        "similar_images": true
+                    });
+
+                    var requestOptions = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: raw,
+                        redirect: 'follow'
+                    };
+
+                    fetch("https://crop.kindwise.com/api/v1/identification?details=type,common_names,eppo_code,wiki_url,taxonomy&language=en", requestOptions)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            displayResults(data);
+                        })
+                        .catch(error => console.log('Error:', error));
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('No file selected');
+            }
+        }
+
+        // Function to display the results from the API
+        function displayResults(data) {
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = "";
+
+            if (data.result && data.result.disease && data.result.disease.suggestions) {
+                // Find the suggestion with the highest probability
+                var highestProbabilitySuggestion = data.result.disease.suggestions.reduce((prev, current) => (prev.probability > current.probability) ? prev : current);
+
+                var diseaseInfo = `
+                    <div class="disease-info">
+                        <h3>Most Likely Disease: ${highestProbabilitySuggestion.name}</h3>
+                        <p><strong>Probability:</strong> ${(highestProbabilitySuggestion.probability * 100).toFixed(2)}%</p>
+                        <p><strong>Scientific Name:</strong> ${highestProbabilitySuggestion.scientific_name}</p>
+                        ${highestProbabilitySuggestion.details.eppo_regulation_status ? `
+                        <p><strong>Regulation Status:</strong></p>
+                        <ul>
+                            ${Object.keys(highestProbabilitySuggestion.details.eppo_regulation_status).map(country => `
+                                <li>${country}: ${highestProbabilitySuggestion.details.eppo_regulation_status[country]}</li>
+                            `).join('')}
+                        </ul>` : ''}
+                        <h4>Similar Images:</h4>
+                        ${highestProbabilitySuggestion.similar_images ? highestProbabilitySuggestion.similar_images.map(image => `
+                            <div>
+                                <img src="${image.url_small}" alt="Similar Image">
+                                ${image.license_name ? `<p><strong>License:</strong> <a href="${image.license_url}">${image.license_name}</a></p>` : ''}
+                                ${image.citation ? `<p><strong>Citation:</strong> ${image.citation}</p>` : ''}
+                            </div>
+                        `).join('') : '<p>No similar images available</p>'}
+                    </div>
+                `;
+
+                resultDiv.innerHTML += diseaseInfo;
+
+                // Note other detected diseases
+                if (data.result.disease.suggestions.length > 1) {
+                    var otherDiseases = data.result.disease.suggestions.filter(suggestion => suggestion !== highestProbabilitySuggestion);
+                    resultDiv.innerHTML += `
+                        <div>
+                            <h3>Other Possible Diseases:</h3>
+                            <ul>
+                                ${otherDiseases.map(suggestion => `
+                                    <li>${suggestion.name} (Probability: ${(suggestion.probability * 100).toFixed(2)}%)</li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+            } else {
+                resultDiv.innerHTML = "<p>No disease detected.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
