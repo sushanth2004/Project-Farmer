@@ -55,13 +55,13 @@ h2 {
     color: black;
 }
 
-.submit_button{
+.submit_button {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.cbox{
+.cbox {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,10 +82,8 @@ button:hover {
     background-color: #45a049;
 }
 
-
 @media only screen and (max-width: 768px) {
-
-    body{
+    body {
         background-image: url('register1.jpg');
         background-size: 222%;
         background-position: center;
@@ -109,5 +107,3 @@ button:hover {
         width: 100%;
     }
 }
-
-

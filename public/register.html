@@ -26,31 +26,48 @@
                 <input type="text" id="fullname" placeholder="Full Name" required>
             </div>
             <div class="input-group">
-                <input type="email" id="email" placeholder="Email" required>
+                <input type="number" id="phone" placeholder="Mobile Number" minlength="10" maxlength="10" required>
             </div>
             <div class="input-group">
-                <input type="text" id="username" placeholder="User Name" required>
+                <input type="email" id="email" placeholder="Email">
             </div>
             <div class="input-group">
                 <input type="password" id="password" placeholder="Password" required>
             </div>
+
+            <!-- Address Fields -->
             <div class="input-group">
-                <input type="number" id="phone" placeholder="Mobile Number"  minlength="10" maxlength="10" required>
+                <input type="text" id="address1" placeholder="Address Line 1" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="address2" placeholder="Address Line 2">
+            </div>
+            <div class="input-group">
+                <input type="text" id="city" placeholder="Village/City" required>
+            </div>
+            <div class="input-group">
+                <input type="number" id="pincode" placeholder="Pincode" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="state" placeholder="State" required>
             </div>
 
             <div class="cbox">
-                <p>Are you a farmer ?</p>
+                <p>Gender: </p>
                 <label>
-                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">Yes
+                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">Male
                 </label>
                 <label>
-                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">No
+                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">Female
+                </label>
+                <label>
+                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">Others
                 </label>
             </div>
 
             <div class="submit_button">
-            <button type="submit">Register</button>
-        </div>
+                <button type="submit">Register</button>
+            </div>
         </form>
     </div>
 </body>
