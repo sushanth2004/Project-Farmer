@@ -1,10 +1,12 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const registerRoutes = require('./routes/register');
-const loginRoutes = require('./routes/login');
-const indexRoutes = require('./routes/index');
-const homeRoutes = require('./routes/home');
-const db = require('./config/db');
+// Import modules using ES Modules syntax
+import express from 'express';
+import bodyParser from 'body-parser';
+import registerRoutes from './routes/register.js';
+import loginRoutes from './routes/login.js';
+import indexRoutes from './routes/index.js';
+import homeRoutes from './routes/home.js';
+import cropHealthRoutes from './routes/cropHealth.js'; // New route import
+import { connectDB } from './config/db.js';
 
 const app = express();
 const port = 3000;
@@ -21,8 +23,16 @@ app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
 app.use('/', indexRoutes);
 app.use('/home', homeRoutes);
+app.use('/cropHealth', cropHealthRoutes); // Mount crop health route
 
 // Start server
-app.listen(port, () => {
-    console.log(`Server started on http://localhost:${port}`);
+app.listen(port, async () => {
+    // Connect to the database
+    try {
+        await connectDB();
+        console.log(`Database connected successfully`);
+        console.log(`Server started on http://localhost:${port}`);
+    } catch (error) {
+        console.error('Database connection error:', error);
+    }
 });

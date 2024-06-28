@@ -1,4 +1,6 @@
-const mysql = require('mysql2');
+// config/db.js
+
+import mysql from 'mysql2';
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -7,11 +9,13 @@ const db = mysql.createConnection({
     database: 'target_farmer'
 });
 
-db.connect(err => {
-    if (err) {
-        throw err;
-    }
-    console.log('MySQL connected...');
-});
+const connectDB = () => {
+    db.connect(err => {
+        if (err) {
+            throw err;
+        }
+        console.log('MySQL connected...');
+    });
+};
 
-module.exports = db;
+export { connectDB, db };

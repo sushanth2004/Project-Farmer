@@ -1,12 +1,12 @@
-const db = require('../config/db');
+import { db } from '../config/db.js';
 
-exports.login = (req, res) => {
+export const login = (req, res) => {
     const { phone, password } = req.body;
 
     const sql = 'SELECT * FROM register WHERE phone = ? AND password = ?';
     const values = [phone, password];
 
-    db.query(sql, values, (err, results) => {
+    db.execute(sql, values, (err, results) => {
         if (err) {
             console.error(err);
             res.status(500).send('Server error');
