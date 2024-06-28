@@ -20,51 +20,51 @@
 </head>
 <body>
     <div class="container">
-        <form>
+        <form action="/register" method="POST">
             <h2>Register</h2>
             <div class="input-group">
-                <input type="text" id="fullname" placeholder="Full Name" required>
+                <input type="text" name="fullname" placeholder="Full Name" required>
             </div>
             <div class="input-group">
-                <input type="number" id="age" placeholder="Age" minlength="1" maxlength="3" required>
+                <input type="number" name="age" placeholder="Age" minlength="1" maxlength="3" required>
             </div>
             <div class="input-group">
-                <input type="number" id="phone" placeholder="Mobile Number" minlength="10" maxlength="10" required>
+                <input type="number" name="phone" placeholder="Mobile Number" minlength="10" maxlength="10" required>
             </div>
             <div class="input-group">
-                <input type="email" id="email" placeholder="Email">
+                <input type="email" name="email" placeholder="Email">
             </div>
             <div class="input-group">
-                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
 
             <!-- Address Fields -->
             <div class="input-group">
-                <input type="text" id="address1" placeholder="Address Line 1" required>
+                <input type="text" name="address1" placeholder="Address Line 1" required>
             </div>
             <div class="input-group">
-                <input type="text" id="address2" placeholder="Address Line 2">
+                <input type="text" name="address2" placeholder="Address Line 2">
             </div>
             <div class="input-group">
-                <input type="text" id="city" placeholder="Village/City" required>
+                <input type="text" name="city" placeholder="Village/City" required>
             </div>
             <div class="input-group">
-                <input type="number" id="pincode" placeholder="Pincode" required>
+                <input type="number" name="pincode" placeholder="Pincode" required>
             </div>
             <div class="input-group">
-                <input type="text" id="state" placeholder="State" required>
+                <input type="text" name="state" placeholder="State" required>
             </div>
 
             <div class="cbox">
                 <p>Gender: </p>
                 <label>
-                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">Male
+                    <input type="checkbox" class="radio" name="gender" onclick="toggleCheckbox(this)">Male
                 </label>
                 <label>
-                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">Female
+                    <input type="checkbox" class="radio" name="gender" onclick="toggleCheckbox(this)">Female
                 </label>
                 <label>
-                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">Others
+                    <input type="checkbox" class="radio" name="gender" onclick="toggleCheckbox(this)">Others
                 </label>
             </div>
 
