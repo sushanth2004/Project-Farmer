@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="register.css">
+    <title>Register</title>
+
+    <script>
+        function toggleCheckbox(checkbox) {
+            var checkboxes = document.querySelectorAll('.radio');
+            checkboxes.forEach(function(box) {
+                if (box !== checkbox) {
+                    box.checked = false;
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <form>
+            <h2>Register</h2>
+            <div class="input-group">
+                <input type="text" id="fullname" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="User Name" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="input-group">
+                <input type="number" id="phone" placeholder="Mobile Number"  minlength="10" maxlength="10" required>
+            </div>
+
+            <div class="cbox">
+                <p>Are you a farmer ?</p>
+                <label>
+                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">Yes
+                </label>
+                <label>
+                    <input type="checkbox" class="radio" name="farmer" onclick="toggleCheckbox(this)">No
+                </label>
+            </div>
+
+            <div class="submit_button">
+            <button type="submit">Register</button>
+        </div>
+        </form>
+    </div>
+</body>
+</html>
