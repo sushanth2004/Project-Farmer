@@ -5,7 +5,6 @@ import registerRoutes from './routes/register.js';
 import loginRoutes from './routes/login.js';
 import indexRoutes from './routes/index.js';
 import homeRoutes from './routes/home.js';
-import cropHealthRoutes from './routes/cropHealth.js'; // New route import
 import { connectDB } from './config/db.js';
 
 const app = express();
@@ -23,7 +22,6 @@ app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
 app.use('/', indexRoutes);
 app.use('/home', homeRoutes);
-app.use('/cropHealth', cropHealthRoutes); // Mount crop health route
 
 // Start server
 app.listen(port, async () => {
