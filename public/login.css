@@ -89,6 +89,7 @@ button:hover {
     right: 10px;
     text-align: right;
     z-index: 1000; /* Ensure it is above other elements */
+    background-color: yellow;
 }
 
 .goog-te-combo {

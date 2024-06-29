@@ -1,13 +1,16 @@
-// Import modules using ES Modules syntax
 import express from 'express';
 import bodyParser from 'body-parser';
 import registerRoutes from './routes/register.js';
 import loginRoutes from './routes/login.js';
 import indexRoutes from './routes/index.js';
 import homeRoutes from './routes/home.js';
+import rssRoutes from './routes/rss.js';  // Import RSS routes
 import { connectDB } from './config/db.js';
+import http from 'http';
+import { initializeSocket } from './controllers/rssController.js';
 
 const app = express();
+const server = http.createServer(app);
 const port = 3000;
 
 // Middleware
@@ -22,9 +25,10 @@ app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
 app.use('/', indexRoutes);
 app.use('/home', homeRoutes);
+app.use('/rss', rssRoutes);  // Use RSS routes
 
 // Start server
-app.listen(port, async () => {
+server.listen(port, async () => {
     // Connect to the database
     try {
         await connectDB();
@@ -34,3 +38,6 @@ app.listen(port, async () => {
         console.error('Database connection error:', error);
     }
 });
+
+// Initialize socket for RSS feed
+initializeSocket(server);
