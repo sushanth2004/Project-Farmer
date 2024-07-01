@@ -1,9 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="home.css" />
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script type="module">
+      document.addEventListener('DOMContentLoaded', () => {
+          const urlParams = new URLSearchParams(window.location.search);
+          const fullname = urlParams.get('fullname');
+          
+          const displayQueriesLink = document.querySelector('a[href="displayQueries.html"]');
+          if (fullname) {
+              document.getElementById('welcomeUser').textContent = `Welcome ${fullname}`;
+              displayQueriesLink.href = `displayQueries.html?fullname=${fullname}`;
+          } else {
+              document.getElementById('welcomeUser').textContent = `Welcome Guest`;
+          }
+      });
+  </script>
     <script>
           
       document.addEventListener('DOMContentLoaded', () => {
@@ -32,6 +48,12 @@
     
         </script>
 </head>
+<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<script>
+    Weglot.initialize({
+        api_key: 'wg_354f9da3f288761b9f2ec6cdb6ec129f7'
+    });
+</script>
 <body>
     <nav class="navbar">
         <ul>
@@ -41,14 +63,14 @@
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn"><i class="fa-brands fa-pagelines"></i>&nbspFarmer Community</a>
                 <div class="dropdown-content">
-                    <a href="askquery.html">Ask Queries</a>
+                    <a href="askQuestion.html">Ask Queries</a>
                     <a href="crop_disease.html">Crop Disease Detection</a>
-                    <a href="#">Crowd Funding</a>
+                    <a href="farmers.html">Crowd Funding</a>
                     <a href="agroguidance.html">Agriculture Guidance</a>
                     <a href="/rss/rss-feed">Agricultural Updates</a>
+                    <a href="ecommerce.html">Buy Organic Vegetables</a>
                 </div>
             </li>
-            <!-- Placeholder for the welcome message -->
             <li><span id="welcomeUser" style="color: white; font-size: larger; padding-left: 130px;"></span></li>
         </ul>
     </nav>
@@ -121,19 +143,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Retrieve fullname from query parameter
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const fullname = urlParams.get('fullname');
-
-            if (fullname) {
-                document.getElementById('welcomeUser').textContent = `Welcome ${fullname}`;
-            } else {
-                document.getElementById('welcomeUser').textContent = `Welcome Guest`;
-            }
-        });
-    </script>
 </body>
 </html>

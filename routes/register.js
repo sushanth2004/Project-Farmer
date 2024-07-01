@@ -1,8 +1,10 @@
-import { register as registerController } from '../controllers/registerController.js'; // Adjust import to use named export
+// register.js
 
 import express from 'express';
+import { register } from '../controllers/registerController.js';
+
 const router = express.Router();
 
-router.post('/', registerController);
+router.post('/', register);
 
 export default router;

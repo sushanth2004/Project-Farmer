@@ -1,8 +1,13 @@
-import { login as loginController } from '../controllers/loginController.js'; // Adjust import to use named export
+// login.js
 
 import express from 'express';
+import { login } from '../controllers/loginController.js';
+
 const router = express.Router();
 
-router.post('/', loginController);
+router.post('/', (req, res) => {
+    // Your login route logic here
+    login(req, res);
+});
 
 export default router;

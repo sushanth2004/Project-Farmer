@@ -1,26 +1,24 @@
 // loginController.js
 
-import { db } from '../config/db.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import pool from '../config/db.js';
 
 export const login = (req, res) => {
     const { phone, password } = req.body;
 
-    const sql = 'SELECT fullname FROM register WHERE phone = ? AND password = ?';
-    const values = [phone, password];
-
-    db.execute(sql, values, (err, results) => {
+    pool.query('SELECT fullname FROM register WHERE phone = ? AND password = ?', [phone, password], (err, results) => {
         if (err) {
-            console.error(err);
-            res.status(500).send('Server error');
-            return;
+            console.error('Database error:', err);
+            return res.status(500).json({ error: 'Database error' });
         }
 
-        if (results.length > 0) {
-            const { fullname } = results[0]; // Assuming 'fullname' is the field in your database
-            // Redirect to home.html with fullname as query parameter
-            res.redirect(`/home.html?fullname=${fullname}`);
-        } else {
-            res.status(401).send('Invalid credentials');
+        if (results.length === 0) {
+            return res.status(401).json({ error: 'Invalid credentials' });
         }
+
+        // Successful login
+        const fullname = results[0].fullname;
+        res.redirect(`/home.html?fullname=${fullname}`); // Redirect with fullname as query parameter
     });
 };

@@ -1,21 +1,29 @@
-// config/db.js
+// db.js
 
 import mysql from 'mysql2';
 
-const db = mysql.createConnection({
+// Database connection configuration
+const pool = mysql.createPool({
     host: 'localhost',
-    user: 'root', // Replace with your MySQL username
-    password: 'tiger', // Replace with your MySQL password
-    database: 'target_farmer'
+    user: 'root',
+    password: 'tiger',
+    database: 'target_farmer',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
-const connectDB = () => {
-    db.connect(err => {
-        if (err) {
-            throw err;
-        }
-        console.log('MySQL connected...');
+export const connectDB = () => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                return reject(err);
+            }
+            console.log('Database connected');
+            connection.release();
+            resolve();
+        });
     });
 };
 
-export { connectDB, db };
+export default pool;

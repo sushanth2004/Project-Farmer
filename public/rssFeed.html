@@ -13,10 +13,60 @@
       padding: 0;
       box-sizing: border-box;
     }
+    .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+  }
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 15px 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .navbar li {
+    margin: 0 50px;
+    position: relative; /* For dropdown */
+  }
+  .navbar a {
+    text-decoration: none;
+    color: white;
+    font-family: Poppins;
+    font-size: 1.2em;
+  }
+  .navbar .dropdown .dropbtn {
+    cursor: pointer;
+  }
+  .navbar .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.9);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  .navbar .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 1em;
+  }
+  .navbar .dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .navbar .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
     h1 {
       text-align: center;
       color: #2c3e50;
       margin-bottom: 20px;
+      margin-top: 50px;
     }
     #rssFeed {
       background-color: #fff;
@@ -52,7 +102,14 @@
     }
   </style>
 </head>
+<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<script>
+    Weglot.initialize({
+        api_key: 'wg_354f9da3f288761b9f2ec6cdb6ec129f7'
+    });
+</script>
 <body>
+
   <div id="rssFeed"></div>
 
   <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
@@ -66,7 +123,7 @@
 
     function displayFeed(feed) {
       const rssFeedContainer = document.getElementById('rssFeed');
-      let html = '<h1>Real-time RSS Feed</h1>';
+      let html = '<h1>Real-time Agricultural Updates</h1>';
       html += '<ul>';
 
       feed.items.forEach(item => {
